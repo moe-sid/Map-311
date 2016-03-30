@@ -58,6 +58,73 @@ map.on('style.load', function(){
       }
 });
 
+map.on('style.load', function(){
+  map.addSource('week3',{
+    "type": 'vector',
+    "data": week3csv
+  })
+  map.addLayer({
+      "id": 'week3',
+      "type": 'circle',
+      "source": 'week3csv',
+      "layout": {},
+      "paint":{
+        'circle-color': #7fcdbb,
+        'circle-radius': 5,
+        'circle-opacity': 1
+      }
+});
+
+map.on('style.load', function(){
+  map.addSource('week4',{
+    "type": 'vector',
+    "data": week4csv
+  })
+  map.addLayer({
+      "id": 'week4',
+      "type": 'circle',
+      "source": 'week4csv',
+      "layout": {},
+      "paint":{
+        'circle-color': #41b6c4,
+        'circle-radius': 5,
+        'circle-opacity': 1
+      }
+});
+
+map.on('style.load', function(){
+  map.addSource('week5',{
+    "type": 'vector',
+    "data": week5csv
+  })
+  map.addLayer({
+      "id": 'week5',
+      "type": 'circle',
+      "source": 'week5csv',
+      "layout": {},
+      "paint":{
+        'circle-color': #2c7fb8,
+        'circle-radius': 5,
+        'circle-opacity': 1
+      }
+});
+
+map.on('style.load', function(){
+  map.addSource('week6',{
+    "type": 'vector',
+    "data": week6csv
+  })
+  map.addLayer({
+      "id": 'week6',
+      "type": 'circle',
+      "source": 'week6csv',
+      "layout": {},
+      "paint":{
+        'circle-color': #253494,
+        'circle-radius': 5,
+        'circle-opacity': 1
+      }
+});
 
 map.on ('style.load', function () {
 	map.addSource ('CouncilZones', { // Layer 1
