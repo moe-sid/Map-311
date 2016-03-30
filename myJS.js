@@ -21,6 +21,39 @@ if (!mapboxgl.supported()) {
 	   });
 };
 
+map.on('style.load', function(){
+  map.addSource('week1',{
+    "type": 'vector',
+    "data": week1
+  })
+  map.addLayer({
+      "id": 'week1',
+      "type": 'circle',
+      "source": 'week1',
+      "layout": {},
+      "paint":{
+        'circle-color': #ffffcc,
+        'circle-radius': 5,
+        'circle-opacity': 1
+      }
+});
+
+map.on('style.load', function(){
+  map.addSource('week2',{
+    "type": 'vector',
+    "data": week2
+  })
+  map.addLayer({
+      "id": 'week2',
+      "type": 'circle',
+      "source": 'week1',
+      "layout": {},
+      "paint":{
+        'circle-color': #c7e9b4,
+        'circle-radius': 5,
+        'circle-opacity': 1
+      }
+});
 
 
 map.on ('style.load', function () {
@@ -247,4 +280,4 @@ map.addControl(new mapboxgl.Navigation());
 map.addControl(new mapboxgl.Geocoder());
 
 
-//Lily's test comment
+
