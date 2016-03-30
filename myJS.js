@@ -1,3 +1,6 @@
+
+//test
+
 mapboxgl.accessToken = 'pk.eyJ1IjoiZ2dyNDAwIiwiYSI6ImNpbGhlZTBoeTJkdWt1dG0wdzNlcXpucjUifQ.az2Trz9xKjXx8L5-g1jHWg';
 
 // var map	=	new	mapboxgl.Map({
