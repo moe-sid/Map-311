@@ -344,6 +344,161 @@ map.on("mousemove", function(e) {
 //     layers.appendChild(link);
 // };
 
+
+var popup = new mapboxgl.Popup({
+    closeOnClick: false,
+    closeButton: false
+});
+
+var legend = document.getElementById('legend');
+var weekLabel = document.getElementById('week');
+
+// Will contain the layers we wish to interact with on
+// during map mouseover and click events.
+var layerIDs = [];
+
+var calls = [
+    [8, '#7F3121'],
+    [7.75, '#913C23'],
+    [7.5, '#A24724'],
+    [7.25, '#B35424'],
+    [7, '#C46222'],
+    [6.75, '#D37120'],
+    [6.5, '#E2801B'],
+    [6.25, '#EF9014'],
+    [6, '#FCA107']
+];
+
+var weeks = [
+    'Week 1',
+    'Week 2',
+    'Week 3',
+    'Week 4',
+    'Week 5',
+    'Week 6'
+];
+
+function filterBy(week, call, index) {
+    // Clear the popup if displayed.
+    popup.remove();
+
+    var filters = [
+        "all",
+        ["==", "week", week],
+        [">=", "call", call[0]]
+    ];
+
+    if (index !== 0) filters.push(["<", "call", calls[index - 1][0]]);
+    map.setFilter('circle-' + index, filters);
+    map.setFilter('label-' + index, filters);
+
+    // Set the label to the month
+    weekLabel.textContent = weeks[week];
+};
+
+
+map.on('load', function() {
+
+        // Create a month property value based on time
+        // used to filter against.
+        data.features = data.features.map(function(d) {
+            d.properties.week = new Date(d.properties.time).getWeek();
+            return d;
+        })
+
+        map.addSource('weekProperty', {
+            'type': 'vector',
+            'data': weekProperty
+        });
+
+        // Apply layer styles
+        calls.forEach(function(call, i) {
+            var layerID = 'circle-' + i;
+            layerIDs.push(layerID);
+
+            map.addLayer({
+              "id": 'weekProperty',
+              "type": 'circle',
+              "source": 'weekProperty',
+              "layout": {},
+              "paint":{
+              'circle-color': #ffffcc,
+              'circle-radius': 5,
+              'circle-opacity': 1
+    }
+});
+
+            map.addLayer({
+                "id": "label-" + i,
+                "type": "symbol",
+                "source": "weekProperty",
+                "layout": {
+                    "text-field": "{call}c",
+                    "text-font": ["Open Sans Bold", "Arial Unicode MS Bold"],
+                    "text-size": 12
+                },
+                "paint": {
+                    "text-color": "rgba(0,0,0,0.5)"
+                }
+            });
+
+            // Set filter to first month of the year +
+            // Magnitude rating. 0 = January
+            filterBy(0, call, i);
+
+            // Add legend bar
+            var bar = document.createElement('div');
+            bar.className = 'bar';
+            bar.title = call[0];
+            bar.style.width = 100 / calls.length + '%';
+            bar.style.backgroundColor = call[1];
+            legend.insertBefore(bar, legend.firstChild);
+        });
+
+        document.getElementById('slider').addEventListener('input', function(e) {
+            var week = parseInt(e.target.value, 10);
+            calls.forEach(function(call, i) {
+                filterBy(week, call, i);
+            });
+        });
+
+        map.on('mousemove', function(e) {
+            var features = map.queryRenderedFeatures(e.point, { layers: layerIDs });
+            // Change the cursor style as a UI indicator.
+            map.getCanvas().style.cursor = (features.length) ? 'pointer' : '';
+        });
+
+        map.on('click', function(e) {
+            var features = map.queryRenderedFeatures(e.point, { layers: layerIDs });
+            if (!features.length) {
+                popup.remove();
+                return;
+            }
+
+            var feature = features[0];
+
+            var link = document.createElement('a');
+            link.href = feature.properties.url;
+            link.target = '_blank';
+            link.textContent = feature.properties.place;
+
+            // Use wrapped coordinates to ensure longitude is within (180, -180)
+            var coords = feature.geometry.coordinates;
+            var ll = new mapboxgl.LngLat(coords[0], coords[1]);
+            var wrapped = ll.wrap();
+
+            // Center the map to its point.
+            map.flyTo({ center: wrapped });
+            popup.setLngLat(wrapped)
+                .setHTML(link.outerHTML)
+                .addTo(map);
+        });
+    });
+});
+
+
+
+
 map.addControl(new mapboxgl.Navigation());
 
 
