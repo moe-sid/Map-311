@@ -27,7 +27,7 @@ if (!mapboxgl.supported()) {
 map.on('style.load', function(){
   map.addSource('week1',{
     "type": 'vector',
-    "data": week1
+    "data": 'mapbox://ggr400.br0ho2cb'
   })
   map.addLayer({
       "id": 'week1',
@@ -35,7 +35,7 @@ map.on('style.load', function(){
       "source": 'week1',
       "layout": {},
       "paint":{
-        'circle-color': #ffffcc,
+        'circle-color': 'red',
         'circle-radius': 5,
         'circle-opacity': 1
       }
@@ -44,7 +44,7 @@ map.on('style.load', function(){
 map.on('style.load', function(){
   map.addSource('week2',{
     "type": 'vector',
-    "data": week2
+    "url": 'mapbox://ggr400.15ktmeu3'
   })
   map.addLayer({
       "id": 'week2',
@@ -52,7 +52,7 @@ map.on('style.load', function(){
       "source": 'week1',
       "layout": {},
       "paint":{
-        'circle-color': #c7e9b4,
+        'circle-color': 'black',
         'circle-radius': 5,
         'circle-opacity': 1
       }
@@ -61,7 +61,7 @@ map.on('style.load', function(){
 map.on('style.load', function(){
   map.addSource('week3',{
     "type": 'vector',
-    "data": week3csv
+    "url": 'mapbox://ggr400.8avijpqc'
   })
   map.addLayer({
       "id": 'week3',
@@ -69,7 +69,7 @@ map.on('style.load', function(){
       "source": 'week3csv',
       "layout": {},
       "paint":{
-        'circle-color': #7fcdbb,
+        'circle-color': 'grey',
         'circle-radius': 5,
         'circle-opacity': 1
       }
@@ -78,7 +78,7 @@ map.on('style.load', function(){
 map.on('style.load', function(){
   map.addSource('week4',{
     "type": 'vector',
-    "data": week4csv
+    "url": 'mapbox://ggr400.dw9syuvf'
   })
   map.addLayer({
       "id": 'week4',
@@ -86,7 +86,7 @@ map.on('style.load', function(){
       "source": 'week4csv',
       "layout": {},
       "paint":{
-        'circle-color': #41b6c4,
+        'circle-color': 'purple',
         'circle-radius': 5,
         'circle-opacity': 1
       }
@@ -95,7 +95,7 @@ map.on('style.load', function(){
 map.on('style.load', function(){
   map.addSource('week5',{
     "type": 'vector',
-    "data": week5csv
+    "url": 'mapbox://ggr400.cmive1hx'
   })
   map.addLayer({
       "id": 'week5',
@@ -103,7 +103,7 @@ map.on('style.load', function(){
       "source": 'week5csv',
       "layout": {},
       "paint":{
-        'circle-color': #2c7fb8,
+        'circle-color': 'blue',
         'circle-radius': 5,
         'circle-opacity': 1
       }
@@ -112,7 +112,7 @@ map.on('style.load', function(){
 map.on('style.load', function(){
   map.addSource('week6',{
     "type": 'vector',
-    "data": week6csv
+    "url": 'mapbox://ggr400.4whyr7nm'
   })
   map.addLayer({
       "id": 'week6',
@@ -120,7 +120,7 @@ map.on('style.load', function(){
       "source": 'week6csv',
       "layout": {},
       "paint":{
-        'circle-color': #253494,
+        'circle-color': 'green',
         'circle-radius': 5,
         'circle-opacity': 1
       }
